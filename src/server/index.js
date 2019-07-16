@@ -10,14 +10,7 @@ import configureStore from "../client/redux/store/configureStore";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import passport from "passport";
 import session from "express-session";
-import mongoose from "mongoose";
-
-//Routers and configs
-import userRouter from "./routers/userRoute";
-import taskRouter from "./routers/taskRouter";
-import configurePassport from "./config/passport";
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const app = express();
@@ -26,27 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({ secret: process.env.RAZZLE_SESSION_SECRET }));
-
-// Mongoose Connect
-mongoose
-  .connect(process.env.RAZZLE_MONGO_URL)
-  .then(result => {
-    console.log(
-      `Connected to Mongo DB, URL =>  ${process.env.RAZZLE_MONGO_URL}`
-    );
-  })
-  .catch(error => {
-    console.log("Cant connect to Mongo DB", error);
-  });
-
-// Passport Setup and Config
-app.use(passport.initialize());
-app.use(passport.session());
-configurePassport(passport);
-
-// API Setup and router setup
-app.use(`${process.env.RAZZLE_API_URL}/user`, userRouter);
-app.use(`${process.env.RAZZLE_API_URL}/task`, taskRouter);
 
 // App Render
 app
