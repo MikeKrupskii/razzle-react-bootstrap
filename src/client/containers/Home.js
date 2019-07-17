@@ -1,30 +1,27 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import Meetings from "../components/Meetings"
+// import Grid from '@material-ui/core/Grid';
+// import Paper from '@material-ui/core/Paper';
+// import Typography from '@material-ui/core/Typography';
+// import ToolBar from "@material-ui/core/ToolBar";
 
 class Home extends React.Component {
-  render() {
-    return (
-      <Container>
-        <Row>
-          <Col md="6">
-            <h3>Lorem</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              voluptate exercitationem consequuntur, debitis quisquam dolorum,
-              quae esse blanditiis delectus fuga voluptatem beatae, similique
-              doloremque nulla animi nisi id maiores. Eius.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              voluptate exercitationem consequuntur, debitis quisquam dolorum,
-              quae esse blanditiis delectus fuga voluptatem beatae, similique
-              doloremque nulla animi nisi id maiores. Eius.
-            </p>
-          </Col>
-        </Row>
-      </Container>
-    );
+
+  state = {
+    meetings: [
+      { id: 1, content: 'Meeting 1 nsectetur adipisicing elit. Nostru' },
+      { id: 2, content: 'Meeting 2 efkjefrf kjrfrfkj' },
+      { id: 3, content: 'Meet 2212083'}
+    ]
   }
+
+render() {
+  return (
+    <div>
+      <Meetings meetings={this.state.meetings} />
+    </div>
+  );
+}
 }
 
 export default Home;
