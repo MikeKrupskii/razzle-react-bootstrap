@@ -1,5 +1,7 @@
 import React from "react";
 import Meetings from "../components/Meetings"
+import { connect } from "react-redux";
+import addMeeting from "../redux/actions";
 // import Grid from '@material-ui/core/Grid';
 // import Paper from '@material-ui/core/Paper';
 // import Typography from '@material-ui/core/Typography';
@@ -24,4 +26,12 @@ render() {
 }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  meeting: state.meeting
+});
+
+const mapDispatchToProps = {
+ addMeeting
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
