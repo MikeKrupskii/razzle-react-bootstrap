@@ -5,9 +5,9 @@ import ToolBar from '@material-ui/core/ToolBar'
 import Typography from '@material-ui/core/Typography'
 
 class Navigation extends React.Component {
-  state = {
-    isOpen: false
-  };
+  // state = {
+  //   isOpen: false
+  // };
 
   render() {
     return (
@@ -26,8 +26,11 @@ class Navigation extends React.Component {
       // </Navbar>
       <div>
         <AppBar position="static">
+        
           <ToolBar>
-            <Typography variant="title" color="inherit">Meeting Room Schedule</Typography>
+            <Typography variant="title" color="inherit" style={{ flex: 1 }}>Meeting Room Schedule</Typography>
+            <img src={require("../../assets/images/mhs_logo.png")} style={{ height: undefined, width: undefined}} resizeMode="contain" alt="MHS Logo"/>
+          
           </ToolBar>
         </AppBar>
 
