@@ -25,10 +25,10 @@ class Navigation extends React.Component {
       //   </Collapse>
       // </Navbar>
       <div>
-        <AppBar position="static">
+        <AppBar position="static" color="black">
         
           <ToolBar>
-            <Typography variant="title" color="inherit" style={{ flex: 1 }}>Meeting Room Schedule</Typography>
+            <Typography variant="title" style={{ flex: 1, color:"#aaa" }}>Meeting Room Schedule</Typography>
             <img src={require("../../assets/images/mhs_logo.png")} style={{ height: undefined, width: undefined}} resizeMode="contain" alt="MHS Logo"/>
           
           </ToolBar>

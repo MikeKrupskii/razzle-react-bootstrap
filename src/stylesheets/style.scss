@@ -1,0 +1,88 @@
+.container{
+    display: flex;
+    min-height: 100vh;
+    @media (max-width: 600px){
+        display: block;
+        height: auto;
+    }
+}
+
+.current-status,
+.upcoming-meetings{
+    flex-basis: 50%;
+    @media (max-width: 600px){
+        // padding: 16px;
+    }
+}
+
+
+.current-status{
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    padding: 64px;
+    h1{
+        font-size: 120px;
+        line-height: 120px;
+    }
+    @media (max-width: 768px){
+        padding: 48px;
+        h1{
+            font-size: 90px;
+        }
+    }
+    @media (max-width: 480px){
+        padding: 24px;
+        h1{
+            font-size: 64px;
+        }
+    }
+}
+
+.upcoming-meetings{
+    background-color: rgba(243, 156, 18, 0.8);
+    padding: 64px;
+    margin-left: 4px;
+    @media (max-width: 768px){
+        padding: 48px;
+        margin-left: 0;
+    }
+    @media (max-width: 600px){
+        padding: 24px;
+        margin-left: 0;
+    }
+    h1{
+        margin: 0 0 24px 0;
+        @media (max-width: 480px){
+            font-size: 32px;
+        }
+    }
+}
+
+.current-time{
+    margin: 32px 0 64px 0;
+    color: #999;
+    font-size: 30px;
+    @media (max-width: 480px){
+        font-size: 22px;
+        margin: 0 0 32px 0;
+    }
+}
+
+.list-group-item{
+    display: block;
+    padding: 16px 4px;
+    color: #4099ff;
+    line-height: 22px;
+    border-bottom: 1px solid #eee;
+    &:hover{
+        background: rgba(0,0,0,0.085);
+    }
+    &:last-child{
+        border-bottom: 0;
+    }
+    .badge{
+        color: rgba(52, 152, 219, 0.8);
+    }
+}

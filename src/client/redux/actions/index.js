@@ -1,7 +1,9 @@
-import { addMeeting } from './meeting.actions'
+import { addMeeting, getMeeting, updateTime } from './meeting.actions'
 
 
 
 export {
-    addMeeting
+    addMeeting,
+    getMeeting,
+    updateTime
 }
