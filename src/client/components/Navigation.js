@@ -25,7 +25,7 @@ class Navigation extends React.Component {
       //   </Collapse>
       // </Navbar>
       <div>
-        <AppBar position="static" color="black">
+        <AppBar position="static" color="black" width="100%">
         
           <ToolBar>
             <Typography variant="title" style={{ flex: 1, color:"#aaa" }}>Meeting Room Schedule</Typography>

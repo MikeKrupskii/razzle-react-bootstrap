@@ -22,7 +22,7 @@ const meetingReducer = (state = initialState, action) => {
         return{
             ...state,
             // meetings: [...state, ...action.payload] 'foo'
-            meetings: state.meetings.push({ id: action.id, name: action.name, period: action.period, organizer: action.organizer, attendee: action.attendee})
+            meetings: state.meetings.push({ id: action.id, name: action.name, period: action.period, organizers: action.organizers, attendee: action.attendee})
             // meetings: [ ...state.meetings, action.content]
         }
     }

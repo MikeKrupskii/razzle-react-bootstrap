@@ -9,9 +9,24 @@ import Typography from '@material-ui/core/Typography';
 // import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-// import AccountBox from '@material-ui/icons/AccountBox';
 import moment from "moment";
 import "../../stylesheets/style.scss";
+import AccountBox from "@material-ui/icons/AccountBox";
+
+// const renderList = (organizers) => organizers.length > 0 ? (
+//   organizers.map(organizer => {
+//     return (
+//       <a
+//         className="list-group-item"
+//       >
+//          {organizer.name}
+//          {organizer.email}
+//       </a>
+//     )
+//   })
+// ) : (
+//     <p> No meetings today </p>
+//   );
 
 
 class Home extends React.Component {
@@ -31,37 +46,22 @@ class Home extends React.Component {
   };
 
 
+
   render() {
 
     const { meetings } = this.props;
     console.log(meetings);
     const { time } = this.props;
     console.log(time);
-    const meetingsList = meetings ? (
-      meetings.map(meeting => {
+
+    const renderList = (organizers) => organizers.length > 0 ? (
+      organizers.map(organizer => {
         return (
-          //   <Card>
-          //   <CardContent>
-          //   <Typography class="test"> {time} </Typography>
-          //     <Typography style={{ font: 23}}> Ongoing meeting</Typography>
-          //     <Typography> {meeting.name} </Typography>
-          //     <Typography> {meeting.time} </Typography>
-          //     <Typography> Attendees: <br></br> <AccountBox/> {meeting.attendee} </Typography>
-          //   </CardContent>
-          // </Card>
           <a
             className="list-group-item"
-            key={meeting.id}
           >
-            {meeting.summary}{" "}
-            <span className="badge">
-              <div className="current-time">{meeting.period[0]}{"-"}{meeting.period[1]}{" "} </div>
-              {meeting.name}
-              <br></br>
-              Organizers: {meeting.organizer.name} <br></br>
-              Attendees: {meeting.attendee.name}
-              {" "}
-            </span>
+             <AccountBox/> {organizer.name} <br></br>
+             {organizer.email}
           </a>
         )
       })
@@ -69,11 +69,68 @@ class Home extends React.Component {
         <p> No meetings today </p>
       );
 
+    // const organizersList = meetings.organizers ? (
+    //   meetings.organizers.map(organizer => {
+    //     return (
+    //       <a className="list-group-item"> {organizer.name} <br></br> {organizer.email} </a>
+    //     )
+    //   })
+    // ): (<p> no organizers</p>);
+
+    // const organizers = meetings.map((organizers) => [...organizers])
+    
+
+    const meetingsList = meetings ? (
+      meetings.map(meeting => {
+        return (
+          <a
+            className="list-group-item"
+            key={meeting.id}
+          >
+            {meeting.summary}{" "}
+            <span className="badge">
+             {meeting.name}
+              <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" "}</div>
+             
+              <br></br>
+              Organizers <br></br> 
+              {renderList(meeting.organizers)}
+               <br></br>
+              Attendees: {meeting.attendee.name}
+              {" "}
+            </span>
+          </a>  
+        )
+      })
+    ) : (
+        <p> No meetings today </p>
+      );
+
+      const upcomingList = meetings ? (
+        meetings.map(meeting => {
+          return (
+            <a
+              className="list-group-item"
+              key={meeting.id}
+            >
+              {meeting.summary}{" "}
+              <span className="badge">
+               {meeting.name}
+                <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" |"} {moment().format("MMM Do YYYY")}  </div>
+              </span>
+            </a>  
+          )
+        })
+      ) : (
+          <p> No meetings today </p>
+        );
+
 
     return (
       <div className="container">
         <div className='current-status'>
           <Card>
+            {time}
             <CardContent>
               <Typography> {time} </Typography>
               <Typography style={{ font: 23 }}> Ongoing meeting</Typography>
@@ -90,7 +147,7 @@ class Home extends React.Component {
             <Grid container direction="column" wrap="nowrap" spacing={24} style={{ padding: 24 }}>
               <Grid item>
                 <Typography>
-                  {meetingsList}
+                  {upcomingList}
                 </Typography>
               </Grid>
             </Grid>
