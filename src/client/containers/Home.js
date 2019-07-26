@@ -19,8 +19,8 @@ import AccountBox from "@material-ui/icons/AccountBox";
 //       <a
 //         className="list-group-item"
 //       >
-//          {organizer.name}
-//          {organizer.email}
+//         <AccountBox /> {organizer.name} <br></br>
+//         {organizer.email}
 //       </a>
 //     )
 //   })
@@ -28,6 +28,20 @@ import AccountBox from "@material-ui/icons/AccountBox";
 //     <p> No meetings today </p>
 //   );
 
+  const renderList = (argumentss) => argumentss.length > 0 ? (
+    argumentss.map(argumentt => {
+      return (
+        <a
+          className="list-group-item"
+        >
+          <AccountBox /> {argumentt.name} <br></br>
+          {argumentt.email}
+        </a>
+      )
+    })
+  ) : (
+      <p> No meetings today </p>
+    );
 
 class Home extends React.Component {
 
@@ -54,32 +68,6 @@ class Home extends React.Component {
     const { time } = this.props;
     console.log(time);
 
-    const renderList = (organizers) => organizers.length > 0 ? (
-      organizers.map(organizer => {
-        return (
-          <a
-            className="list-group-item"
-          >
-             <AccountBox/> {organizer.name} <br></br>
-             {organizer.email}
-          </a>
-        )
-      })
-    ) : (
-        <p> No meetings today </p>
-      );
-
-    // const organizersList = meetings.organizers ? (
-    //   meetings.organizers.map(organizer => {
-    //     return (
-    //       <a className="list-group-item"> {organizer.name} <br></br> {organizer.email} </a>
-    //     )
-    //   })
-    // ): (<p> no organizers</p>);
-
-    // const organizers = meetings.map((organizers) => [...organizers])
-    
-
     const meetingsList = meetings ? (
       meetings.map(meeting => {
         return (
@@ -89,41 +77,43 @@ class Home extends React.Component {
           >
             {meeting.summary}{" "}
             <span className="badge">
-             {meeting.name}
+              {meeting.name}
               <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" "}</div>
-             
+
               <br></br>
-              Organizers <br></br> 
+              Organizers <br></br>
               {renderList(meeting.organizers)}
-               <br></br>
-              Attendees: {meeting.attendee.name}
+              <br></br>
+              Attendees <br></br> 
+              {renderList(meeting.attendee)}
+              {meeting.attendee.name}
               {" "}
             </span>
-          </a>  
+          </a>
         )
       })
     ) : (
         <p> No meetings today </p>
       );
 
-      const upcomingList = meetings ? (
-        meetings.map(meeting => {
-          return (
-            <a
-              className="list-group-item"
-              key={meeting.id}
-            >
-              {meeting.summary}{" "}
-              <span className="badge">
-               {meeting.name}
-                <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" |"} {moment().format("MMM Do YYYY")}  </div>
-              </span>
-            </a>  
-          )
-        })
-      ) : (
-          <p> No meetings today </p>
-        );
+    const upcomingList = meetings ? (
+      meetings.map(meeting => {
+        return (
+          <a
+            className="list-group-item"
+            key={meeting.id}
+          >
+            {meeting.summary}{" "}
+            <span className="badge">
+              {meeting.name}
+              <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" |"} {moment().format("MMM Do YYYY")}  </div>
+            </span>
+          </a>
+        )
+      })
+    ) : (
+        <p> No meetings today </p>
+      );
 
 
     return (
