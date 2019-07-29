@@ -21,13 +21,13 @@ export const getMeeting = () => {
 return dispatch => {
   dispatch({type: 'ADD_MOCKING_MEETING', meetings:[
     {
-      id: 1, name:"meeting1", period: ['14:00', '15:00'], organizers: [{name: 'Mike', email: 'mike@myhotelshop.eu'}, {name: 'Maria', email: 'maria@myhotelshop.eu'}], attendee: [{name:'Paul', email:"paul@myhotelshop.eu"}, {name:'Joe', email:"joe@myhotelshop.eu"}]
+      id: 1, name:"Monday meeting", period: {start:'10:00', finish:'16:00'}, organizers: [{name: 'Mike', email: 'mike@myhotelshop.eu'}, {name: 'Maria', email: 'maria@myhotelshop.eu'}], attendee: [{name:'Paul', email:"paul@myhotelshop.eu"}, {name:'Joe', email:"joe@myhotelshop.eu"}]
     },
     {
-      id: 2, name:"meeting2", period: ['15:00', '16:00'], organizers: {name: 'Joe', email: 'joe@myhotelshop.eu'}, attendee: {name:'Paul', email:"paul@myhotelshop.eu"}
+      id: 2, name:"Company breakfast", period: {start:'17:00', finish:'18:00'}, organizers: {name: 'Joe', email: 'joe@myhotelshop.eu'}, attendee: {name:'Paul', email:"paul@myhotelshop.eu"}
     },
     {
-      id: 3, name:"meeting3", period: ['16:00', '17:00'], organizers: {name: 'Mike', email: 'mike@myhotelshop.eu'}, attendee: {name:'Paul', email:"paul@myhotelshop.eu"}
+      id: 3, name:"Meeting of penguin lovers", period: {start:'19:00', finish:'20:00'}, organizers: {name: 'Mike', email: 'mike@myhotelshop.eu'}, attendee: {name:'Paul', email:"paul@myhotelshop.eu"}
     }
 
   ]})

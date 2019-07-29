@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import moment from "moment";
 import "../../stylesheets/style.scss";
 import AccountBox from "@material-ui/icons/AccountBox";
+import CalendarToday from "@material-ui/icons/CalendarToday";
 
 // const renderList = (organizers) => organizers.length > 0 ? (
 //   organizers.map(organizer => {
@@ -28,14 +29,14 @@ import AccountBox from "@material-ui/icons/AccountBox";
 //     <p> No meetings today </p>
 //   );
 
-  const renderList = (argumentss) => argumentss.length > 0 ? (
-    argumentss.map(argumentt => {
+  const renderList = (list) => list.length > 0 && typeof list !== 'undefined' ? (
+    list.map(eachElement => {
       return (
         <a
           className="list-group-item"
         >
-          <AccountBox /> {argumentt.name} <br></br>
-          {argumentt.email}
+          <AccountBox /> {eachElement.name} <br></br>
+         <span className="email">{eachElement.email} </span>
         </a>
       )
     })
@@ -43,10 +44,21 @@ import AccountBox from "@material-ui/icons/AccountBox";
       <p> No meetings today </p>
     );
 
+    // const renderTime = (period) => period && period.length > 0 ? (
+    //   period.map(eachElement => {
+    //     return (
+    //       <div className="current-time">
+    //         {eachElement.start}{" to "}{eachElement.finish}
+    //       </div>
+    //     )
+    //   })
+    // ): (<p> time period not defined </p>);
+
 class Home extends React.Component {
 
   componentDidMount = () => {
     this.props.getMeeting();
+    // this.getCurrentMeeting;
     setInterval(() => {
       this.getTime();
     }, 1000);
@@ -64,10 +76,64 @@ class Home extends React.Component {
   render() {
 
     const { meetings } = this.props;
-    console.log(meetings);
     const { time } = this.props;
-    console.log(time);
 
+    const getCurrentMeeting = () => {
+    let now = moment().format("HH:mm");
+    if(meetings){
+    for (let i=0; i<meetings.length; i++){
+      let meetingItem = meetings[i];
+      let format = 'HH:mm';
+      let startTime = moment(meetingItem.period.start, format);
+      let endTime = moment(meetingItem.period.finish, format);
+      let currentTime = moment(now ,format);
+      if (
+        moment(currentTime).isBetween(
+          moment(startTime),
+          moment(endTime)
+        )
+      ) {
+        return meetingItem
+      }
+      else{
+        return( [] )
+      }
+    }
+    }
+    else{
+      console.log("something")
+    }
+    }
+    
+
+    const currentMeeting = meetings ? (getCurrentMeeting()) : ({
+      id: 1, name:"meeting1", period: {start:'9:00', finish:'16:00'}, organizers: [{name: 'Msdike', email: 'mike@myhotelshop.eu'}, {name: 'Maria', email: 'maria@myhotelshop.eu'}], attendee: [{name:'Paul', email:"paul@myhotelshop.eu"}, {name:'Joe', email:"joe@myhotelshop.eu"}]
+    });
+    console.log(currentMeeting);
+    // console.log(currentMeeting.period);
+
+    const ongoingList = currentMeeting ? (
+      (
+        <div> <span className="badge">
+        {currentMeeting.name}
+        {/* <div className="current-time"> {renderTime(currentMeeting.period)} {" "}</div> */}
+        <div className="current-time"> {currentMeeting.period.start} {" "}</div>
+
+        </span>
+        <br></br>
+        Organizers <br></br>
+        {/* {renderList(currentMeeting.organizers)} */}
+        <br></br>
+        Attendees <br></br> 
+        {/* {renderList(currentMeeting.attendee)} */}
+        {" "}</div>
+      )
+    ): ( <p> no ongoing meeting</p>);
+
+      
+    
+    console.log(ongoingList);
+    
     const meetingsList = meetings ? (
       meetings.map(meeting => {
         return (
@@ -78,23 +144,25 @@ class Home extends React.Component {
             {meeting.summary}{" "}
             <span className="badge">
               {meeting.name}
-              <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" "}</div>
-
+              <div className="current-time">{meeting.period.start}{" to "}{meeting.period.finish}{" "}</div>
+              </span>
               <br></br>
-              Organizers <br></br>
+              <span className="badge"> Organizers <br></br> </span>
               {renderList(meeting.organizers)}
               <br></br>
-              Attendees <br></br> 
+              <span className="badge"> Attendees <br></br> </span>
               {renderList(meeting.attendee)}
-              {meeting.attendee.name}
               {" "}
-            </span>
+            
           </a>
         )
       })
     ) : (
         <p> No meetings today </p>
       );
+      console.log(meetingsList);
+
+
 
     const upcomingList = meetings ? (
       meetings.map(meeting => {
@@ -105,8 +173,8 @@ class Home extends React.Component {
           >
             {meeting.summary}{" "}
             <span className="badge">
-              {meeting.name}
-              <div className="current-time">{meeting.period[0]}{" to "}{meeting.period[1]}{" |"} {moment().format("MMM Do YYYY")}  </div>
+              <CalendarToday/> {meeting.name}
+              <div className="current-time">{meeting.period.start}{" to "}{meeting.period.finish}{" |"} {moment().format("MMM Do YYYY")}  </div>
             </span>
           </a>
         )
@@ -118,23 +186,26 @@ class Home extends React.Component {
 
     return (
       <div className="container">
+        
         <div className='current-status'>
-          <Card>
-            {time}
+          <Card style={{width:'500px'}}>
+          <div className="time"> {time} </div>
             <CardContent>
-              <Typography> {time} </Typography>
+              {/* <Typography> {time} </Typography> */}
               <Typography style={{ font: 23 }}> Ongoing meeting</Typography>
-              <Typography> {meetingsList[0]} </Typography>
+              <Typography> { meetingsList[0]} </Typography>
+
             </CardContent>
           </Card>
         </div>
 
         <div className='upcoming-meetings'>
           <Typography spacing={24} style={{ padding: 24 }}>
-            Upcoming meetings
+            
         </Typography>
           <Paper>
             <Grid container direction="column" wrap="nowrap" spacing={24} style={{ padding: 24 }}>
+            Upcoming meetings
               <Grid item>
                 <Typography>
                   {upcomingList}

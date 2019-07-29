@@ -66,7 +66,7 @@
 .current-time{
     margin: 32px 0 64px 0;
     color: #999;
-    font-size: 30px;
+    font-size: 24px;
     @media (max-width: 480px){
         font-size: 22px;
         margin: 0 0 32px 0;
@@ -87,9 +87,17 @@
     }
     .badge{
         color: rgba(52, 152, 219, 0.8);
+        font-size: 24px;
     }
 }
 
-.main-time{
-    float: left;
+.email{ 
+    font-size: 14px;
+    color:rgba(149, 165, 166, 1);
+    padding-left: 30px;
+}
+
+.time{
+    text-align: center;
+    font-size: 19px;
 }
